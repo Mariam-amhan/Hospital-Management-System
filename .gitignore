@@ -1,6 +1,4 @@
-src/patients.txt
-src/doctors.txt
-src/appointments.txt
+*.class
 
 src/patients.txt
 src/doctors.txt

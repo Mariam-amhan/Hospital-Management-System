@@ -89,5 +89,5 @@ src
 
 ## Author
 
-**Mariam Amhan**
+Mariam Amhan
 

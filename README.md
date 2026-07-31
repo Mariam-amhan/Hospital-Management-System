@@ -1,6 +1,6 @@
 # Hospital Management System
 
-A Hospital Management System developed in Java using Object-Oriented Programming (OOP). The project allows users to manage patients, doctors, and appointments through a console-based application.
+A console-based Hospital Management System developed in Java using Object-Oriented Programming (OOP). The project allows users to manage patients, doctors, and appointments, with support for data storage using text files.
 
 ---
 

@@ -6,7 +6,7 @@ A console-based Hospital Management System developed in Java using Object-Orient
 
 ## Features
 
-- Add, update, search, remove, and display patients.
+- Add, update, search, remove, and display patients. 
 - Add, update, search, remove, and display doctors.
 - Book, search, remove, and display appointments.
 - Save all data to text files.

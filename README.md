@@ -87,6 +87,19 @@ src
 
 ---
 
+
+## Learning Outcomes
+
+Through this project, I strengthened my understanding of:
+
+- Object-Oriented Programming (OOP) principles in Java.
+- Designing classes and managing relationships between objects.
+- File handling for persistent data storage.
+- Organizing Java projects into models and services.
+- Building a complete console-based management system.
+
+---
+
 ## Author
 
 Mariam Amhan

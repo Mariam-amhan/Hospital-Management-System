@@ -1,228 +1,203 @@
 package services;
 
 import java.util.ArrayList;
-
-import models.Patient;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.IOException;
 import models.Doctor;
+import models.Patient;
 import models.Appointment;
 
-public class HospitalSystem {
+public class FileManager {
+    public void savePatients(ArrayList<Patient> patients) {
+        try {
+            File file = new File("patients.txt");
+            FileWriter writer = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(writer);
 
-    private ArrayList<Patient> patients;
-    private ArrayList<Doctor> doctors;
-    private ArrayList<Appointment> appointments;
-
-    public HospitalSystem() {
-        patients = new ArrayList<>();
-        doctors = new ArrayList<>();
-        appointments = new ArrayList<>();
-    }
-
-    public void addPatient(Patient patient) {
-        patients.add(patient);
-    }
-
-    public void addDoctor(Doctor doctor) {
-        doctors.add(doctor);
-    }
-
-    public void addAppointment(Appointment appointment) {
-        appointments.add(appointment);
-    }
-
-    public Patient searchPatientById(int id) {
-        for (Patient patient : patients) {
-            if (patient.getId() == id) {
-                return patient;
+            for (Patient patient : patients) {
+                bw.write(
+                        patient.getId() + "," +
+                                patient.getName() + "," +
+                                patient.getAge() + "," +
+                                patient.getGender() + "," +
+                                patient.getDisease() + "," +
+                                patient.getBloodType() + "," +
+                                patient.getMedicalHistory());
+                bw.newLine();
             }
-        }
+            bw.close();
 
-        return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public boolean removePatientById(int id) {
-        Patient patient = searchPatientById(id);
+    public ArrayList<Patient> loadPatients() {
+        ArrayList<Patient> patients = new ArrayList<>();
 
-        if (patient != null) {
-            patients.remove(patient);
-            return true;
+        File file = new File("patients.txt");
+
+        if (!file.exists()) {
+            return patients;
         }
 
-        return false;
-    }
-
-    public Doctor searchDoctorById(int id) {
-        for (Doctor doctor : doctors) {
-            if (doctor.getId() == id) {
-                return doctor;
+        try {
+            FileReader reader = new FileReader(file);
+            BufferedReader br = new BufferedReader(reader);
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                int id = Integer.parseInt(data[0]);
+                String name = data[1];
+                int age = Integer.parseInt(data[2]);
+                String gender = data[3];
+                String disease = data[4];
+                String bloodType = data[5];
+                String medicalHistory = data[6];
+                Patient patient = new Patient(id, name, age, gender, disease, bloodType, medicalHistory);
+                patients.add(patient);
             }
+            br.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        return null;
+        return patients;
+
     }
 
-    public boolean removeDoctorById(int id) {
-        Doctor doctor = searchDoctorById(id);
+    public void saveDoctors(ArrayList<Doctor> doctors) {
+        try {
+            FileWriter writer = new FileWriter("doctors.txt");
+            BufferedWriter bw = new BufferedWriter(writer);
 
-        if (doctor != null) {
-            doctors.remove(doctor);
-            return true;
-        }
+            for (Doctor doctor : doctors) {
+                bw.write(
+                        doctor.getId() + "," +
+                                doctor.getName() + "," +
+                                doctor.getAge() + "," +
+                                doctor.getGender() + "," +
+                                doctor.getSpecialization() + "," +
+                                doctor.getSalary() + "," +
+                                doctor.getYearsOfExperience());
 
-        return false;
-    }
+                bw.newLine();
 
-    public Appointment searchAppointmentById(int appointmentId) {
-        for (Appointment appointment : appointments) {
-            if (appointment.getAppointmentId() == appointmentId) {
-                return appointment;
             }
-        }
+            bw.close();
 
-        return null;
-    }
-
-    public boolean removeAppointmentById(int appointmentId) {
-        Appointment appointment = searchAppointmentById(appointmentId);
-
-        if (appointment != null) {
-            appointments.remove(appointment);
-            return true;
-        }
-
-        return false;
-    }
-
-    public void displayAllPatients() {
-        for (Patient patient : patients) {
-            patient.displayInfo();
-            System.out.println("--------------------");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public void displayAllDoctors() {
-        for (Doctor doctor : doctors) {
-            doctor.displayInfo();
-            System.out.println("--------------------");
+    public ArrayList<Doctor> loadDoctors() {
+        ArrayList<Doctor> doctors = new ArrayList<>();
+        File file = new File("doctors.txt");
+
+        if (!file.exists()) {
+            return doctors;
         }
-    }
+        try {
+            FileReader reader = new FileReader(file);
+            BufferedReader br = new BufferedReader(reader);
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                int id = Integer.parseInt(data[0]);
+                String name = data[1];
+                int age = Integer.parseInt(data[2]);
+                String gender = data[3];
+                String specialization = data[4];
+                double salary = Double.parseDouble(data[5]);
+                int yearsOfExperience = Integer.parseInt(data[6]);
+                Doctor doctor = new Doctor(id, name, age, gender, specialization, salary, yearsOfExperience);
+                doctors.add(doctor);
 
-    public void displayAllAppointments() {
-        for (Appointment appointment : appointments) {
-            appointment.displayInfo();
-            System.out.println("--------------------");
-        }
-    }
+            }
+            br.close();
 
-    public boolean updatePatientById(
-            int id,
-            String name,
-            int age,
-            String gender,
-            String disease,
-            String bloodType,
-            String medicalHistory
-    ) {
-        Patient patient = searchPatientById(id);
-
-        if (patient != null) {
-            patient.setName(name);
-            patient.setAge(age);
-            patient.setGender(gender);
-            patient.setDisease(disease);
-            patient.setBloodType(bloodType);
-            patient.setMedicalHistory(medicalHistory);
-
-            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        return false;
+        return doctors;
+
     }
 
-    public boolean updateDoctorById(
-            int id,
-            String name,
-            int age,
-            String gender,
-            String specialization,
-            double salary,
-            int yearsOfExperience
-    ) {
-        Doctor doctor = searchDoctorById(id);
-
-        if (doctor != null) {
-            doctor.setName(name);
-            doctor.setAge(age);
-            doctor.setGender(gender);
-            doctor.setSpecialization(specialization);
-            doctor.setSalary(salary);
-            doctor.setYearsOfExperience(yearsOfExperience);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    public boolean bookAppointment(
-            int patientId,
-            int doctorId,
-            String date,
-            String time
-    ) {
-        Patient patient = searchPatientById(patientId);
-        Doctor doctor = searchDoctorById(doctorId);
-
-        if (patient != null && doctor != null) {
+    public void saveAppointments(ArrayList<Appointment> appointments) {
+        try {
+            FileWriter writer = new FileWriter("appointments.txt");
+            BufferedWriter bw = new BufferedWriter(writer);
 
             for (Appointment appointment : appointments) {
-                if (appointment.getDoctor().getId() == doctorId
-                        && appointment.getDate().equals(date)
-                        && appointment.getTime().equals(time)) {
-
-                    return false;
-                }
+                bw.write(
+                        appointment.getAppointmentId() + "," +
+                                appointment.getPatient().getId() + "," +
+                                appointment.getDoctor().getId() + "," +
+                                appointment.getDate() + "," +
+                                appointment.getTime());
+                bw.newLine();
             }
 
-            int appointmentId = generateAppointmentID();
+            bw.close();
 
-            Appointment appointment = new Appointment(
-                    appointmentId,
-                    patient,
-                    doctor,
-                    date,
-                    time
-            );
-
-            addAppointment(appointment);
-            return true;
-        }
-
-        return false;
-    }
-
-    public int generateAppointmentID() {
-
-    int maxId = 0;
-
-    for (Appointment appointment : appointments) {
-        if (appointment.getAppointmentId() > maxId) {
-            maxId = appointment.getAppointmentId();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    return maxId + 1;
-    }
+    public ArrayList<Appointment> loadAppointments(ArrayList<Patient> patients, ArrayList<Doctor> doctors) {
+        ArrayList<Appointment> appointments = new ArrayList<>();
+        File file = new File("appointments.txt");
 
-    public ArrayList<Patient> getPatients() {
-        return patients;
-    }
+        if (!file.exists()) {
+            return appointments;
+        }
+        try {
+            FileReader reader = new FileReader(file);
+            BufferedReader br = new BufferedReader(reader);
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                int appointmentId = Integer.parseInt(data[0]);
+                int patientId = Integer.parseInt(data[1]);
+                int doctorId = Integer.parseInt(data[2]);
+                String date = data[3];
+                String time = data[4];
 
-    public ArrayList<Doctor> getDoctors() {
-        return doctors;
-    }
+                Patient patient = null;
+                Doctor doctor = null;
 
-    public ArrayList<Appointment> getAppointments() {
+                for (Patient p : patients) {
+                    if (p.getId() == patientId) {
+                        patient = p;
+                        break;
+                    }
+                }
+
+                for (Doctor d : doctors) {
+                    if (d.getId() == doctorId) {
+                        doctor = d;
+                        break;
+                    }
+                }
+
+                if (patient != null && doctor != null) {
+                    Appointment appointment = new Appointment(appointmentId, patient, doctor, date, time);
+                    appointments.add(appointment);
+                }
+            }
+            br.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return appointments;
     }
 }

@@ -1,29 +1,31 @@
 package models;
 
-public class  Patient extends Person {
+public class Patient extends Person {
     protected String disease;
     protected String bloodType;
     protected String medicalHistory;
-    
-    public Patient(int id, String name, int age, String gender, String disease, String bloodType, String medicalHistory) 
-    {
+
+    public Patient(int id, String name, int age, String gender, String disease, String bloodType,
+            String medicalHistory) {
         super(id, name, age, gender);
         this.disease = disease;
         this.bloodType = bloodType;
         this.medicalHistory = medicalHistory;
-    
+
     }
 
-  public void setDisease(String disease) {
+    public void setDisease(String disease) {
         this.disease = disease;
     }
-   public String getDisease() {
+
+    public String getDisease() {
         return disease;
     }
 
     public void setBloodType(String bloodType) {
         this.bloodType = bloodType;
     }
+
     public String getBloodType() {
         return bloodType;
     }
@@ -31,7 +33,8 @@ public class  Patient extends Person {
     public void setMedicalHistory(String medicalHistory) {
         this.medicalHistory = medicalHistory;
     }
-   public String getMedicalHistory() {
+
+    public String getMedicalHistory() {
         return medicalHistory;
     }
 
@@ -42,11 +45,4 @@ public class  Patient extends Person {
         System.out.println("Medical History: " + medicalHistory);
     }
 
-
-
-
-
-
 }
-
-

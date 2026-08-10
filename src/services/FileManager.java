@@ -1,13 +1,11 @@
 package services;
-
 import java.util.ArrayList;
-
+import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
-
 import models.Doctor;
 import models.Patient;
 import models.Appointment;
@@ -17,7 +15,8 @@ public class FileManager {
     public void savePatients(ArrayList<Patient> patients) 
     {
         try {
-            FileWriter writer = new FileWriter("patients.txt");
+            File file = new File("patients.txt");
+            FileWriter writer = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(writer);
 
             for (Patient patient : patients) 
@@ -41,10 +40,17 @@ public class FileManager {
         }
 
     public ArrayList<Patient> loadPatients() 
-    {
-           ArrayList<Patient> patients = new ArrayList<>();
-            try {
-                FileReader reader = new FileReader("patients.txt");
+{
+    ArrayList<Patient> patients = new ArrayList<>();
+
+    File file = new File("patients.txt");
+
+    if (!file.exists()) {
+        return patients;
+    }
+
+    try {
+        FileReader reader = new FileReader(file);
                 BufferedReader br = new BufferedReader(reader);
                 String line;
                 while ((line = br.readLine()) != null) 
@@ -101,8 +107,13 @@ public class FileManager {
     public ArrayList<Doctor> loadDoctors() 
     {
            ArrayList<Doctor> doctors = new ArrayList<>();
+           File file = new File("doctors.txt");
+
+           if (!file.exists()) {
+                return doctors;
+            }
             try {
-                FileReader reader = new FileReader("doctors.txt");
+                FileReader reader = new FileReader(file);
                 BufferedReader br = new BufferedReader(reader);
                 String line;
                 while ((line = br.readLine()) != null) 
@@ -154,8 +165,13 @@ public class FileManager {
 
     public ArrayList<Appointment> loadAppointments(ArrayList<Patient> patients, ArrayList<Doctor> doctors) {
         ArrayList<Appointment> appointments = new ArrayList<>();
+        File file = new File("appointments.txt");
+
+if (!file.exists()) {
+    return appointments;
+}
         try {
-            FileReader reader = new FileReader("appointments.txt");
+            FileReader reader = new FileReader(file);
             BufferedReader br = new BufferedReader(reader);
             String line;
             while ((line = br.readLine()) != null) {

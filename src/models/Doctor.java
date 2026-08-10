@@ -1,48 +1,48 @@
 package models;
 
-public class Doctor extends Person {
-    protected String specialization;
-    protected double salary;
-    protected int yearsOfExperience;
+public class Patient extends Person {
+    protected String disease;
+    protected String bloodType;
+    protected String medicalHistory;
 
-    public Doctor(int id, String name, int age, String gender, String specialization, double salary,
-            int yearsOfExperience) {
+    public Patient(int id, String name, int age, String gender, String disease, String bloodType,
+            String medicalHistory) {
         super(id, name, age, gender);
-        this.specialization = specialization;
-        this.salary = salary;
-        this.yearsOfExperience = yearsOfExperience;
+        this.disease = disease;
+        this.bloodType = bloodType;
+        this.medicalHistory = medicalHistory;
+
     }
 
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
+    public void setDisease(String disease) {
+        this.disease = disease;
     }
 
-    public String getSpecialization() {
-        return specialization;
+    public String getDisease() {
+        return disease;
     }
 
-    public void setSalary(double salary) {
-        this.salary = salary;
+    public void setBloodType(String bloodType) {
+        this.bloodType = bloodType;
     }
 
-    public double getSalary() {
-        return salary;
+    public String getBloodType() {
+        return bloodType;
     }
 
-    public void setYearsOfExperience(int yearsOfExperience) {
-        this.yearsOfExperience = yearsOfExperience;
+    public void setMedicalHistory(String medicalHistory) {
+        this.medicalHistory = medicalHistory;
     }
 
-    public int getYearsOfExperience() {
-        return yearsOfExperience;
+    public String getMedicalHistory() {
+        return medicalHistory;
     }
 
     public void displayInfo() {
         super.displayInfo();
-        System.out.println("Specialization: " + specialization);
-        System.out.println("Salary: " + salary);
-        System.out.println("Years of Experience: " + yearsOfExperience);
-
+        System.out.println("Disease: " + disease);
+        System.out.println("Blood Type: " + bloodType);
+        System.out.println("Medical History: " + medicalHistory);
     }
 
 }

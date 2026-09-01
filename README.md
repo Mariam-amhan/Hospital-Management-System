@@ -100,6 +100,19 @@ Through this project, I strengthened my understanding of:
 
 ---
 
+
+## Future Improvements
+
+* Migrate the current console-based application to Spring Boot.
+* Develop RESTful APIs for managing patients, doctors, and appointments.
+* Replace text file storage with a relational database such as MySQL.
+* Use Spring Data JPA for database operations.
+* Add authentication and role-based access for different users.
+* Develop a web-based user interface for the system.
+
+---
+
+
 ## Author
 
 Mariam Amhan
